@@ -37,7 +37,7 @@
     "inputtext": {
     	"prefix": "inputtext",
     	"body": [
-    		"<input type='text' class=' ' value=' '  name=' ' placeholder= ' ' />"
+    		"<input type='text' class='' value=''  name='' placeholder= '' />"
     	],
     	"description": "<input type='text'... "
     }
@@ -61,7 +61,7 @@
     "inputsubmit": {
     	"prefix": "inputsubmit",
     	"body": [
-    		"<input type='submit' class=' ' value='提 交'>"
+    		"<input type='submit' class='' value='提 交'>"
     	],
     	"description": "<input type='submit'... "
     }
@@ -95,15 +95,99 @@
     	"description": "<input type='submit'... "
     }
 
-    "form": {
-    	"prefix": "form",
+    "formpost": {
+    	"prefix": "formpost",
     	"body": [
-    		 "   <form>    ",
-    		"             ",
+    		"   <form method=\"post\" action=\"/login/\">   <!--action中必须以/结尾-->      ",
+    		"    {% csrf_token %} ",
+    		"    <input type='text' class='' value=''  name='username' placeholder= 'username' />",
+    		"    <input type='password' class='' value=''  name='password' placeholder= 'password' />  ",
+    		"    <input type='submit' class='' value='提 交'>",
     		"   </form>   ",
     		""
     	],
-    	"description": "<form... "
+    	"description": "<form method=\"post\"... "
+    }
+
+    	"ul": {
+    	"prefix": "ul",
+    	"body": [
+    		 "<ul>",
+    		 "",
+    		 "</ul>"
+    	],
+    	"description": "<ul... "
+    }
+
+    "li": {
+    	"prefix": "li",
+    	"body": [
+    		 "   <li>  </li>    "
+    	],
+    	"description": "<ul... "
+    }
+
+    "inputpassword": {
+    	"prefix": "inputpassword",
+    	"body": [
+    		 "<input type='password' class='' value=''  name='user' placeholder= 'password' />     "
+    	],
+    	"description": "<inputpassword... "
+    }
+
+    "CharField32": {
+    	"prefix": "CharField32",
+    	"body": [
+    		 "models.CharField(max_length=32)    "
+    	],
+    	"description": "=models.CharField(max_length=32) "
+    }
+    "CharField64": {
+    	"prefix": "CharField64",
+    	"body": [
+    		 "models.CharField(max_length=64)    "
+    	],
+    	"description": "=models.CharField(max_length=64) "
+    }
+
+    "IntegerField": {
+    	"prefix": "IntegerField",
+    	"body": [
+    		 "models.IntegerField()    "
+    	],
+    	"description": "=models.IntegerField()  "
+    }
+
+    "a": {
+    	"prefix": "a",
+    	"body": [
+    		 "<a href=\"\" class=\"btn btn-primary btn-sm \">按钮名</a>  "
+    	],
+    	"description": "<a...  "
+    }
+
+    "adel": {
+    	"prefix": "adel",
+    	"body": [
+    		 "<a href=\"/info/del/?nid={{item.id}}\" class=\"btn btn-primary btn-xs \">删除</a>  "
+    	],
+    	"description": "<a...  "
+    }
+
+    "aedit": {
+    	"prefix": "aedit",
+    	"body": [
+    		 "<a href=\"/info/edit/?nid={{item.id}}\" class=\"btn btn-primary btn-xs \">编辑</a>  "
+    	],
+    	"description": "<a...  "
+    }
+
+    "BooleanField": {
+    	"prefix": "BooleanField",
+    	"body": [
+    		 "models.BooleanField()    "
+    	],
+    	"description": "=models.BooleanField()  "
     }
 
     "newdjango": {
@@ -138,20 +222,21 @@
     		"                                                                                            ",
     		"    <h1>!用户列表!:</h1>     ",
     		"    <h2>                                                                            ",
-    		"      <div class=\" \">{{name}}</div>   <!--Django 调用传进的字典参数-->                                               ",
-    		"      <div class=\"\">{{roles.0}}</div>  <!--Django 使用字典的特殊格式-->                    ",
-    		"      <div class=\"\">{{roles.1}}</div>                                             ",
-    		"      <div class=\"\">{{roles.2}}</div>                                             ",
-    		"      <div class=\"\" id=\"\">                                                      ",
-    		"        {% for item in roles %}     <!--Django 使用for循环,显示列表中的内容-->                                                  ",
-    		"        <div>{{item}}</div>                                                         ",
-    		"        {% endfor %}                                                                ",
-    		"      </div>   ",
-    		"      <hr/>												",
-    		"      {{user_dict}}                                         ",
-    		"      <div class=\"\" id=\"\">{{user_dict.name}}</div>      ",
-    		"      <div class=\"\" id=\"\">{{user_dict.salary}}</div>    ",
-    		"      <div class=\"\" id=\"\">{{user_dict.role}}</div>  ",
+    		"      <ul>                                                                      ",
+    		"        {% for dict in data_list %}  <!--Django 使用for循环,显示data_list 中 dict的内容-->    ",
+    		"        <li>                                                                    ",
+    		"          Name: {{dict.name}} ; Role: {{dict.role}} ; Salary: {{dict.salary}}   ",
+    		"        </li>                                                                   ",
+    		"        {% endfor %}                                                            ",
+    		"      </ul>                                                                     ",
+    		"      <hr/>                                                                        ",
+    		"      {% if name == \"Terry Sun\"  %}   <!--Django 使用if-else语句-->                  ",
+    		"      <h1> yesyesyes \"Terry Sun\" </h1>    <!--Django == 和 \"\" 中间要有空格-->           ",
+    		"      {% elif name == \"Terry Sun_LM\" %}                                          ",
+    		"      <h1> yesyesyes \"Terry Sun_LM\" </h1>                                        ",
+    		"      {% else %}                                                                   ",
+    		"        <h1> nonono</h1>                                                           ",
+    		"      {% endif %}                                                                  ",
     		"    </h2>                                  ",
     		"    <img src=\"{% static 'img/blade.jpg' %}\" alt='' />      ",
     		"                                                                                            ",
@@ -167,7 +252,7 @@
     		"      $(function () {});                                                                    ",
     		"    </script>                                                                               ",
     		"  </body>                                                                                   ",
-    		"</html>                                                                                     ",
+    		"</html>                                   login                                                  ",
     		"                                                                                            ",
     		" "
     	],
@@ -192,23 +277,133 @@
     		"# 'Python -m pip install --upgrade pip'  # 升级pip                                                   ",
     		"# 'pip install pymysql  -i https://pypi.douban.com/simple' ",
     		"#  'pip install pandas  -i https://pypi.douban.com/simple' ",
+    		"#  'pip install mysqlclient==2.1.0  -i https://pypi.douban.com/simple' ",
+    		"#  Django ORM:",
+    		"#     1. ORM 可以创建,修改删除表, 但是不能创建数据库",
+    		"#     2. 操作表中数据, 不用写SQL语句",
+    		"#   创建数据库  CREATE DATABASE djangosite DEFAULT CHARSET utf8mb4 ; ",
+    		"##   https://www.cnblogs.com/wupeiqi   老师的博客园, 有很多可以学些的知识  ",
+    		"#   [settings] - DATABASE={ ..中替换成MySQL的设置 ",
+    		"#   DATABASES = {                              ",
+    		"#       'default': {                           ",
+    		"#       'ENGINE': 'django.db.backends.mysql',  ",
+    		"#       'NAME':'djangosite',                   ",
+    		"#       'USER': 'root',                        ",
+    		"#       'PASSWORD': 'LM-china1',               ",
+    		"#       'HOST': '127.0.0.1',                   ",
+    		"#       'PORT': '3306',                        ",
+    		"#       }                                      ",
+    		"#   }   ",
+    		"#   运行终端时, 确定运行的是自己文件夹得终端",
+    		"#   python manage.py makemigrations  #ORM初始化 ",
+    		"#   python manage.py migrate  #创建数据表",
+    		"#   python manage.py runserver  ",
+    		"#   python manage.py createsuperuser    # admin lm-china1  在/admin 中使用",
+    		"#   在app01中的[admin.py]中增加:  实现在/admin中增加相关部分",
+    		"#   from .models import UserInfo,Department ",
+    		"#   class UserInfoAdmin(admin.ModelAdmin):",
+    		"#       list_display=(\"username\",\"pwd\",\"age\",\"del_flag\")",
+    		"#   ",
+    		"#   class DepartmentAdmin(admin.ModelAdmin):",
+    		"#       list_display=(\"title\",)",
+    		"#                                           ",
+    		"#   admin.site.register(UserInfo,UserInfoAdmin)           ",
+    		"#   admin.site.register(Department,DepartmentAdmin)         ",
+    		"",
+    		"",
+    		"",
+    		"#   app01.[models.py]中 创建表类 没有写ID, Django会自动创建主键: id BIGINT PRIMARY KEY AUTO_INCREMENT, ",
+    		"#   class UserInfo(models.Model):                                                       ",
+    		"#       username=models.CharField(max_length=32)                                        ",
+    		"#       pwd=models.CharField(max_length=64)                                             ",
+    		"#       age=models.IntegerField(null=True,blank=True)  #允许为空, 允许不填                    ",
+    		"#       del_flag=models.BooleanField(default=0,null=True,blank=True)  # 默认值为0, #允许为空, 允许不填                              ",
+    		"#                                                                                       ",
+    		"#   class Department(models.Model):                                                     ",
+    		"#       title=models.CharField(max_length=16)                                           ",
+    		"#       news_title=models.CharField(max_length=255)",
+    		"#       url=models.CharField(max_length=2083)",
+    		"#       salary=models.FloatField()",
+    		"#                                                                                       ",
+    		"##   UserInfo.objects.create(username=\"tsu\",pwd=\"lm-china1\")  # 新建                       ",
+    		"##   UserInfo.objects.create(username=\"admin\",pwd=\"lm-china1\")   # 新建                     ",
+    		"##   # 新建数据   自动生成:  insert into app01_department(title) vlaues(\"销售部\")                 ",
+    		"##   Department.objects.create(title=\"销售部\")   # 新建                                          ",
+    		"#   ",
+    		"##   UserInfo.objects.filter(id=4).delete()  # 删除按钮的功能",
+    		"##   Department.objects.all().delete()  # 清空表",
+    		"#   ",
+    		"##   data_list=UserInfo.objects.all()  # 获取表所有内容",
+    		"##   for obj in data_list:",
+    		"##     print(obj.id, obj.username, obj.pwd,obj.age, obj.del_flag)",
+    		"#   ",
+    		"##   row_obj=UserInfo.objects.filter(id=1).first()  # 获取一行数据",
+    		"##   print(row_obj.id,row_obj.username,row_obj.pwd,row_obj.age,row_obj.del_flag)",
+    		"#   ",
+    		"##   UserInfo.objects.create(username=\"tsu\",pwd=\"lm-china1\")  # 新建数据 ",
+    		"##   UserInfo.objects.filter(id=1).update(pwd=\"123\")  #修改数据",
+    		"##   UserInfo.objects.filter(id=2).update(del_flag=1)  # 删除数据",
+    		"#   ",
+    		"#   ",
     		"#  django-admin startproject Djangosite . #这里的空格+.表示在当前文件夹下来创建项目并把manage.py放在跟目录下",
     		"#  python manage.py startapp app01# 创建一个APP -用向右向下斜杠替换_",
     		"# [settings.py]中注册 - 在 installed_app=[ 下增加 'app01.apps.App01Config', 可以在app01文件夹下apps.py中找到相关类的名称",
     		"# [urls.py] 中增加 from app01 import views  并在urlpatterns=[ 下增加 path('index/', views.index), ",
     		"# [views.py]中创建index函数 - 至此浏览器中就能有些内容了",
+    		"# [views.py]中 from django.shortcuts import render,HttpResponse,redirect",
+    		"def user_list(request):                   ",
+    		"  #1. 获取数据库中所有用户的信息",
+    		"  data_list=UserInfo.objects.filter(del_flag=0)",
+    		"  #2. 渲染, 返回给用户",
+    		"  return render(request,'user_list.html', {\"data_list\":data_list}) ",
     		"# def index(request):              ",
     		"#  return HttpResponse('欢迎使用')",
+    		"# def redirecttomytechchart(request):              ",
+    		"#  return redirect(\"https://geit.service-now.com/mytech_support_chat.do\")",
+    		"",
+    		"def info_add(request):                                         ",
+    		"  if request.method== \"GET\":                                 ",
+    		"    return render(request,'info_add.html')                     ",
+    		"  # 获取用户提交的数据                                                  ",
+    		"  username=request.POST.get(\"username\")                      ",
+    		"  pwd=request.POST.get(\"pwd\")                                ",
+    		"  age=request.POST.get(\"age\")                                ",
+    		"  del_flag=request.POST.get(\"del_flag\")                      ",
+    		"                                                               ",
+    		"  #添加到数据库                                                      ",
+    		"  UserInfo.objects.create(username=username,pwd=pwd,age=age)   ",
+    		"  #跳转到用户列表界面                                                   ",
+    		"  return redirect(\"/info/list/\")                             ",
+    		"",
+    		"  #删除功能 - 通过修改del_flag实现   # href=\"/info/del/?nid={{item.id}}\" 来实现 ",
+    		"  def info_del(request):                                  ",
+    		"    nid=request.GET.get(\"nid\")                            ",
+    		"    UserInfo.objects.filter(id=nid).update(del_flag=1)    ",
+    		"    return redirect(\"/info/list/\")                        ",
+    		"",
+    		"",
+    		"",
+    		"",
+    		"",
+    		"",
     		"# 启动Django - python manage.py runserver  ",
     		"# [urls.py]中新加第二个页面 path('user/list', views.user_list), # 前面式url后缀, 后面views.是views.py中的函数名称",
     		"# [views.py]中创建index函数user_list:  def user_list(request):   return render(request,'user_list.html')",
     		"  #默认情况下,在app的先后顺序去找.         ",
     		"  # 先去在app01 templates文件夹中找这个文件   ",
     		"  # 再去  app02 templates文件夹中找这个文件   ",
-    		"# def tpl(request):    # 传参数的写法                                                        ",
-    		"#   name=\"Terry Sun\"                                                         ",
-    		"#   roles=[\"admin\",\"CEO\",\"China\"]                                        ",
-    		"#   return render(request,'tpl.html',{\"name\":name,\"roles\":roles})          ",
+    		"# def tpl(request):                                                                                                      ",
+    		"#   name=\"Terry Sun\"                                                                                                   ",
+    		"#   roles=[\"admin\",\"CEO\",\"China\"]                                                                                  ",
+    		"#   user_dict={\"name\":\"郭志\",\"salary\":100000,\"role\":\"CEO\"}                                                       ",
+    		"#   data_list=[                                                                                                          ",
+    		"#     {\"name\":\"郭志\",\"salary\":100000,\"role\":\"CEO\"} ,                                                             ",
+    		"#     {\"name\":\"张三\",\"salary\":200000,\"role\":\"CTO\"} ,                                                             ",
+    		"#     {\"name\":\"李四\",\"salary\":300000,\"role\":\"CFO\"} ,                                                             ",
+    		"#     {\"name\":\"王五\",\"salary\":400000,\"role\":\"VP\"}                                                                ",
+    		"#   ]                                                                                                                    ",
+    		"#   # Django 使用字典的方式传参数 {\"Key1\":data1,\"key2\":data2}                                                                  ",
+    		"#   return render(request,'tpl.html',{\"name\":name,\"roles\":roles,\"user_dict\":user_dict,\"data_list\":data_list})    ",
     		"# python manage.py migrate ",
     		"",
     		"",
@@ -251,7 +446,7 @@
     "table": {
     	"prefix": "table",
     	"body": [
-    		"<table border='1'>			",
+    		"<table class=\"table table-striped\">			",
     		"  <thead>                  ",
     		"    <tr>                   ",
     		"      <th></th>            ",
