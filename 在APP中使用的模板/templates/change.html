@@ -1,0 +1,62 @@
+{% extends "layout.html" %} {% load static %} {% block css %}                                                          
+<!--这里写自己的css内容了. -->                                                                                                                 
+<link                                                                                                                  
+  rel="stylesheet"                                                                                                     
+  href="{% static "plugins/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css" %}"                            
+/>                                                                                                                     
+{% endblock %} {% block content %}                                                                                     
+<!--如果想顶格显示可以改为container-fluid style="width: 700px" -->                                                                             
+<div class="container"  style="width: 60%">                                                                            
+  <!--下面可以继续写内容了. -->                                                                                                                 
+  <!--下面可以继续写内容了. -->                                                                                                  
+  <div class="panel panel-primary">                                                                                    
+    <!-- Default panel contents -->                                                                                    
+    <div class="panel-heading">                                                                                        
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>                                           
+        {{title}}                                                                                                      
+    </div>                                                                                                             
+    <form class="form-horizontal" style="margin-top:10px;" method="post"  novalidate>                                  
+        {% csrf_token %}                                                                                               
+        {% for item in form %}   <!--根据传入的ModelForm 类的对象, 生成对应列的输入框  -->                                                                  
+        <div class="form-group row">                                                                                   
+        <!--username. -->                                                                                              
+        <label class="col-md-2 control-label" for="username"                                                           
+            >{{item.label}}:</label                                                                                    
+        >                                                                                                              
+        <div class="col-md-8">{{item}}  <span style="color: red">{{item.errors.0}}</div>                               
+        </div>                                                                                                         
+                                                                                                                       
+        {% endfor %}                                                                                                   
+                                                                                                                       
+        <div class="form-group row">                                                                                   
+        <label class="col-md-2 control-label" for="username"></label                                                   
+        >                                                                                                              
+        <div class="col-md-8">                                                                                         
+            <button type="submit" class="btn btn-primary">Submit</button>                                              
+        </div>                                                                                                         
+        </div>                                                                                                         
+    </form>                                                                                                            
+</div>                                                                                                                 
+  {% endblock %} {% block js %}                                                                                        
+  <!--这里写自己的js内容了. -->                                                                                                                
+  <!-- https://jquery.com/ 引入bootstrap的js -->                                                                                
+  <script src="{% static "plugins/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js" %}"></script>             
+  <script src="{% static "plugins/bootstrap-datepicker-1.9.0/locales/bootstrap-datepicker.zh-CN.min.js" %}"></script>  
+  <script>                                                                                                             
+    var day=new Date();                                                                                                
+        //初始化                                                                                                                
+    var ops = {                                                                                                        
+            todayHighlight:true, //设置当天日期高亮                                                                                           
+            language: "zh-CN", //语言                                                                                        
+            autoclose: true, //选择后自动关闭                                                                                               
+            clearBtn: true,//清除按钮                                                                                              
+            format: "yyyy-mm-dd",//日期格式                                                                                        
+        };                                                                                                             
+    $("#id_create_time").datepicker(ops);                                                                              
+    $("#id_edit_time").datepicker(ops);                                                                                
+                                                                                                                       
+  </script>                                                                                                            
+  {% endblock %}                                                                                                       
+</div>                                                                                                                 
+                                                                                                                       
+        

@@ -1,0 +1,112 @@
+{% load static %}                                                                                                                                
+<!DOCTYPE html>                                                                                                                                  
+<html lang="en">                                                                                                                                 
+  <head>                                                                                                                                         
+    <meta charset="UTF-8" />                                                                                                                  
+    <title>登录系统</title>                                                                                                                          
+    <!-- https://v3.bootcss.com/ -->                                                                                                             
+    <link                                                                                                                                        
+      rel="stylesheet"                                                                                                                           
+      href="{% static 'plugins/bootstrap-3.4.1/css/bootstrap.min.css' %}"                                                                        
+    />                                                                                                                                           
+    <!-- https://fontawesome.dashgame.com -->                                                                                                    
+    <link                                                                                                                                        
+      rel="stylesheet"                                                                                                                           
+      href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}"                                                                  
+    />                                                                                                                                           
+    <style>                                                                                                                                      
+      .account {                                                                                                                                 
+        width: 400px;                                                                                                                            
+        border: 1px solid #dddddd;                                                                                                               
+        border-radius: 5px;                                                                                                                      
+        box-shadow: 5px 5px 20px #aaa;                                                                                                           
+                                                                                                                                                 
+        margin-left: auto;                                                                                                                       
+        margin-right: auto;                                                                                                                      
+        margin-top: 100px;                                                                                                                       
+        padding: 20px 40px;                                                                                                                      
+      }                                                                                                                                          
+                                                                                                                                                 
+      .account h2 {                                                                                                                              
+        margin-top: 10px;                                                                                                                        
+        text-align: center;                                                                                                                      
+      }                                                                                                                                          
+    </style>                                                                                                                                     
+  </head>                                                                                                                                        
+                                                                                                                                                 
+  <body>                                                                                                                                         
+    <!--如果想顶格显示可以改为container-fluid style="width: 700px" -->                                                                                      
+    <div class="account">                                                                                                                        
+      <!--下面可以继续写内容了. -->                                                                                                                        
+      <!--下面可以继续写内容了. -->                                                                                                                        
+      <div class="">                                                                                                                             
+        <div class="">                                                                                                                           
+          <div>                                                                                                                                  
+            <h2>                                                                                                                                 
+              <span class="glyphicon glyphicon-user" aria-hidden="true"></span>                                                                  
+              {{title}}                                                                                                                          
+            </h2>                                                                                                                                
+          </div>                                                                                                                                 
+                                                                                                                                                 
+          <form class="form-horizontal" method="post" novalidate>                                                                                
+            {% csrf_token %} {% for item in form %}                                                                                              
+            <!--根据传入的ModelForm 类的对象, 生成对应列的输入框  -->                                                                                              
+            <div class="form-group row">                                                                                                         
+              <!--username. -->                                                                                                                  
+              <label class="col-sm-3 control-label">{{item.label}}:</label>                                                                      
+              <div class="col-sm-8">                                                                                                             
+                {{item}} <span style="color: red">{{item.errors.0}}</span>                                                                       
+              </div>                                                                                                                             
+            </div>                                                                                                                               
+                                                                                                                                                 
+            {% endfor %}                                                                                                                         
+            <div class="form-group row">                                                                                                         
+              <!--username. -->                                                                                                                  
+                                                                                                                                                 
+              <div class="col-sm-offset-3 col-sm-7" style="margin-top:0px;" id="">                                                              
+                <a  href="/login/" >  <img id="image_code" src="/image/code/" /></a>                                                                                    
+              </div>                                                                                                                             
+            </div>                                                                                                                               
+                                                                                                                                                 
+            <div class="form-group row">                                                                                                         
+              <div class="col-sm-offset-3 col-sm-7">                                                                                             
+                <button                                                                                                                          
+                  type="submit"                                                                                                                  
+                  class="btn btn-primary"                                                                                                        
+                  style="float: left"                                                                                                            
+                >                                                                                                                                
+                  登录                                                                                                                         
+                </button>                                                                                                                        
+              </div>                                                                                                                             
+              {% comment %}                                                                                                                      
+              <div class="col-sm-offset-3 col-sm-7">                                                                                             
+                <a href=""> 没有账号? 点我注册</a>                                                                                                       
+              </div>                                                                                                                             
+            </div>                                                                                                                               
+            {% endcomment %}                                                                                                                     
+          </form>                                                                                                                                
+        </div>                                                                                                                                   
+      </div>                                                                                                                                     
+      <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>                                                                              
+      <!-- https://jquery.com/ 引入bootstrap的js -->                                                                                                
+      <script src="{% static 'plugins/bootstrap-3.4.1/js/bootstrap.min.js' %}"></script>                                                         
+      <!--这里写自己的js内容了. -->                                                                                                                       
+      <!-- https://jquery.com/ 引入bootstrap的js -->                                                                                                
+      <script src="{% static 'plugins/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js' %}"></script>                                   
+      <script src="{% static 'plugins/bootstrap-datepicker-1.9.0/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>                        
+      <script>                                                                                                                                   
+        var day = new Date();                                                                                                                    
+        //初始化                                                                                                                                    
+        var ops = {                                                                                                                              
+          todayHighlight: true, //设置当天日期高亮                                                                                                       
+          autoclose: true, //选择后自动关闭                                                                                                             
+          clearBtn: true, //清除按钮                                                                                                                 
+          format: "yyyy-mm-dd", //日期格式                                                                                                           
+        };                                                                                                                                       
+        $("#id_create_time").datepicker(ops);                                                                                                    
+        $("#id_edit_time").datepicker(ops);                                                                                                      
+      </script>                                                                                                                                  
+    </div>                                                                                                                                       
+  </body>                                                                                                                                        
+</html>                                                                                                                                          
+                                                                                                                                                 

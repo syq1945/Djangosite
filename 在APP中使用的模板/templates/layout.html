@@ -1,112 +1,151 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>后台管理</title>
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui"
-    />
-    <!-- https://v3.bootcss.com/ -->
-    <link
-      rel="stylesheet"
-      href="{% static 'plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css' %}"
-    />
-    <!-- https://fontawesome.dashgame.com -->
-    <link
-      rel="stylesheet"
-      href="{% static 'plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}"
-    />
-
-    {% block css %}{% endblock %}
-
-    <style>
-      .navbar {
-        border-radius: 0px;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!--html从这里开始写 -->
-    <!--class="container" 可以让内容居中 ; class="container-fluid" 让内容顶格 -->
-    <!--铺满的导航条, 如果想让导航内容居中显示, 可以把 container-fluid 改为container-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-        <!--container 就会居中显示了  -->
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#"
-                >Home <span class="sr-only">(current)</span></a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/dept/list/">部门管理</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/user/list/">用户管理</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Dropdown
-              </a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
-            </li>
-          </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input
-              class="form-control mr-sm-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-              Search
-            </button>
-          </form>
-        </div>
-      </div>
-    </nav>
-    <div class="" id="" style="margin-top: 10px">
-      <!--这里只放了2个div, 第二个div中含有container,内容会居中显示 -->
-      <!--如果想顶格显示可以改为container-fluid -->
-      {% block content %}{% endblock %}
-    </div>
-
-    <!-- https://jquery.com/ -->
-    <script src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
-    <!-- https://jquery.com/ 引入bootstrap的js -->
-    <script src="{% static 'plugins/bootstrap-4.6.1-dist/js/bootstrap.min.js' %}"></script>
-    {% block js %}{% endblock %}
-  </body>
-</html>
+{% load static %}                                                                                                             
+<!DOCTYPE html>                                                                                                               
+<html lang="en">                                                                                                            
+  <head>                                                                                                                      
+    <meta charset="UTF-8" />                                                                                                
+    <title>后台管理</title>                                                                                                       
+    <!-- https://v3.bootcss.com/ -->                                                                                          
+    <link                                                                                                                     
+      rel="stylesheet"                                                                                                      
+      href="{% static "plugins/bootstrap-3.4.1/css/bootstrap.min.css" %}"                                                   
+    />                                                                                                                        
+    <!-- https://fontawesome.dashgame.com -->                                                                                 
+    <link                                                                                                                     
+      rel="stylesheet"                                                                                                      
+      href="{% static "plugins/font-awesome-4.7.0/css/font-awesome.min.css" %}"                                             
+    />                                                                                                                        
+                                                                                                                              
+    {% block css %}{% endblock %}                                                                                             
+                                                                                                                              
+    <style>                                                                                                                   
+      .navbar {                                                                                                               
+        border-radius: 0px;                                                                                                   
+      }                                                                                                                       
+    </style>                                                                                                                  
+  </head>                                                                                                                     
+                                                                                                                              
+  <body>                                                                                                                      
+    <!--html从这里开始写 -->                                                                                                        
+    <!--class="container" 可以让内容居中 ; class="container-fluid" 让内容顶格 -->                                                     
+    <!--铺满的导航条, 如果想让导航内容居中显示, 可以把 container-fluid 改为container-->                                                              
+    <nav class="navbar navbar-inverse">                                                                                     
+      <div class="container-fluid">                                                                                         
+        <!--class="container" 可以让内容居中 ; class="container-fluid" 让内容顶格 -->                                                 
+        <!-- Brand and toggle get grouped for better mobile display -->                                                       
+        <div class="navbar-header">                                                                                         
+          <button                                                                                                             
+            type="button"                                                                                                   
+            class="navbar-toggle collapsed"                                                                                 
+            data-toggle="collapse"                                                                                          
+            data-target="#bs-example-navbar-collapse-1"                                                                     
+            aria-expanded="false"                                                                                           
+          >                                                                                                                   
+            <span class="sr-only">Toggle navigation</span>                                                                  
+            <span class="icon-bar"></span>                                                                                  
+            <span class="icon-bar"></span>                                                                                  
+            <span class="icon-bar"></span>                                                                                  
+          </button>                                                                                                           
+          <a class="navbar-brand" href="/index/">Home</a>                                                                 
+        </div>                                                                                                                
+                                                                                                                              
+        <!-- Collect the nav links, forms, and other content for toggling -->                                                 
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">                                          
+          <ul class="nav navbar-nav">                                                                                       
+            <li class="">                                                                                                   
+              <a href="/v_admin/list/"                                                                                      
+                >管理员<span class="sr-only">(current)</span></a                                                               
+              >                                                                                                               
+            </li>                                                                                                             
+            <li class="">                                                                                                   
+              <a href="/order/list/"                                                                                        
+                >工单管理<span class="sr-only">(current)</span></a                                                              
+              >                                                                                                               
+            </li>                                                                                                             
+            <li>                                                                                                              
+              <a target="" href="/chart/list/">数据统计</a>                                                                   
+            </li>                                                                                                             
+            <ul class="nav navbar-nav navbar-right">                                                                        
+              <li class="dropdown">                                                                                         
+                <a                                                                                                            
+                  href="#"                                                                                                  
+                  class="dropdown-toggle"                                                                                   
+                  data-toggle="dropdown"                                                                                    
+                  role="button"                                                                                             
+                  aria-haspopup="true"                                                                                      
+                  aria-expanded="false"                                                                                     
+                  >dropdown<span class="caret"></span                                                                         
+                ></a>                                                                                                         
+                <ul class="dropdown-menu">                                                                                  
+                  <li>                                                                                                        
+                    <a                                                                                                        
+                      target="_blank"                                                                                       
+                      href="#"                                            
+                      >Link</a                                                                                         
+                    >                                                                                                         
+                  </li>                                                                                                       
+                  <li>                                                                                                        
+                    <a                                                                                                        
+                      target="_blank"                                                                                       
+                      href="#"                                        
+                      >Link</a                                                                                       
+                    >                                                                                                         
+                  </li>                                                                                                       
+                  <li>                                                                                                        
+                    <a                                                                                                        
+                      target="_blank"                                                                                       
+                      href="#"                                                  
+                      >Link</a                                                                                     
+                    >                                                                                                         
+                  </li>                                                                                                       
+                  <li role="separator" class="divider"></li>                                                              
+                  <li><a href="#">link</a></li>                                                                             
+                </ul>                                                                                                         
+              </li>                                                                                                           
+            </ul>                                                                                                             
+                                                                                                                              
+            <li>                                                                                                              
+              <a target="" href="#">Link</a>                                                                              
+            </li>                                                                                                             
+            <li>                                                                                                              
+              <a target="" href="#">Link</a>                                                                              
+            </li>                                                                                                             
+          </ul>                                                                                                               
+          <ul class="nav navbar-nav navbar-right">                                                                          
+            <li class="dropdown">                                                                                           
+              <a                                                                                                              
+                href="#"                                                                                                    
+                class="dropdown-toggle"                                                                                     
+                data-toggle="dropdown"                                                                                      
+                role="button"                                                                                               
+                aria-haspopup="true"                                                                                        
+                aria-expanded="false"                                                                                       
+                >{{request.session.info.username }}<span class="caret"></span                                               
+              ></a>                                                                                                           
+              <ul class="dropdown-menu">                                                                                    
+                <li><a href="#">个人资料</a></li>                                                                               
+                <li><a href="#">我的信息</a></li>                                                                               
+                <li><a href="#">Something else here</a></li>                                                                
+                <li role="separator" class="divider"></li>                                                                
+                <li><a href="/logout/">注销</a></li>                                                                          
+              </ul>                                                                                                           
+            </li>                                                                                                             
+          </ul>                                                                                                               
+        </div>                                                                                                                
+        <!-- /.navbar-collapse -->                                                                                            
+      </div>                                                                                                                  
+      <!-- /.container-fluid -->                                                                                              
+    </nav>                                                                                                                    
+    <div class="" id="">                                                                                                  
+      <!--这里只放了2个div, 第二个div中含有container,内容会居中显示 -->                                                                          
+      <!--如果想顶格显示可以改为container-fluid -->                                                                                      
+      {% block content %}{% endblock %}                                                                                       
+    </div>                                                                                                                    
+                                                                                                                              
+    <!-- https://jquery.com/ -->                                                                                              
+    <script src="{% static "js/jquery-3.6.1.min.js" %}"></script>                                                           
+    <!-- https://jquery.com/ 引入bootstrap的js -->                                                                               
+    <script src="{% static "plugins/bootstrap-3.4.1/js/bootstrap.min.js" %}"></script>                                      
+    {% block js %}{% endblock %}                                                                                              
+  </body>                                                                                                                     
+</html>                                                                                                                       
+                                                                                                                              

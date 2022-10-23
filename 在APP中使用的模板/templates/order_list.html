@@ -1,0 +1,442 @@
+{% extends "layout.html" %} {% load static %} {% block css %}                                                                               
+<link                                                                                                                                       
+  rel="stylesheet"                                                                                                                        
+  href="{% static 'plugins/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css' %}"                                               
+/>                                                                                                                                          
+{% endblock %} {% block content %}                                                                                                          
+<!--如果想顶格显示可以改为container-fluid -->                                                                                                          
+<div class="container-fluid">                                                                                                             
+  <!--下面可以继续写内容了. -->                                                                                                                       
+  <!--下面可以继续写内容了. -->                                                                                                                       
+  <div class="" id="">                                                                                                                  
+    <div class="container-fluid" id="">                                                                                                 
+      <div class="" style="margin-bottom: 10px" id="">                                                                                
+        <!-- 新建按钮 -->                                                                                                                       
+        <button type="button" id="btn_add" class="btn btn-primary btn-lg">                                                            
+          <i class="fa fa-plus" aria-hidden="true"></i> New                                                                             
+        </button>                                                                                                                           
+                                                                                                                                            
+        <!-- 新建/模态框 -->                                                                                                                     
+        <div                                                                                                                                
+          class="modal fade"                                                                                                              
+          id="myModal"                                                                                                                    
+          tabindex="-1"                                                                                                                   
+          role="dialog"                                                                                                                   
+          aria-labelledby="myModalLabel"                                                                                                  
+        >                                                                                                                                   
+          <div class="modal-dialog" role="document">                                                                                    
+            <div class="modal-content">                                                                                                   
+              <div class="modal-header">                                                                                                  
+                <button                                                                                                                     
+                  type="button"                                                                                                           
+                  class="close"                                                                                                           
+                  data-dismiss="modal"                                                                                                    
+                  aria-label="Close"                                                                                                      
+                >                                                                                                                           
+                  <span aria-hidden="true">&times;</span>                                                                                 
+                </button>                                                                                                                   
+                <i class="fa fa-cog fa-2x fa-fw margin-bottom"></i>                                                                       
+                <h4                                                                                                                         
+                  class="modal-title"                                                                                                     
+                  id="myModalLabel"                                                                                                       
+                  style="display: inline-block"                                                                                           
+                >                                                                                                                           
+                  新建                                                                                                                        
+                </h4>                                                                                                                       
+              </div>                                                                                                                        
+              <div class="modal-body">                                                                                                    
+                <form id="formajax" style="margin-top: 10px" novalidate>                                                                
+                  <div class="clearfix" id="">                                                                                          
+                    {% for item in form %}                                                                                                  
+                    <!--根据传入的ModelForm 类的对象, 生成对应列的输入框  -->                                                                                 
+                    <div class="col-sm-6" id="">                                                                                        
+                      <div                                                                                                                  
+                        class="form-group"                                                                                                
+                        style="position: relative; margin-bottom: 15px"                                                                   
+                      >                                                                                                                     
+                        <label>{{item.label}}:</label>                                                                                      
+                        {{item}}                                                                                                            
+                        <span                                                                                                               
+                          class="error-msg"                                                                                               
+                          style="color: red; position: absolute"                                                                          
+                        >                                                                                                                   
+                        </span>                                                                                                             
+                      </div>                                                                                                                
+                    </div>                                                                                                                  
+                    {% endfor %}                                                                                                            
+                  </div>                                                                                                                    
+                </form>                                                                                                                     
+              </div>                                                                                                                        
+              <div class="modal-footer">                                                                                                  
+                <button                                                                                                                     
+                  type="button"                                                                                                           
+                  class="btn btn-default"                                                                                                 
+                  data-dismiss="modal"                                                                                                    
+                >                                                                                                                           
+                  取 消                                                                                                                       
+                </button>                                                                                                                   
+                <button id="btn_save" type="button" class="btn btn-primary">                                                          
+                  保 存                                                                                                                       
+                </button>                                                                                                                   
+              </div>                                                                                                                        
+            </div>                                                                                                                          
+          </div>                                                                                                                            
+        </div>                                                                                                                              
+        <!-- 删除模态框 -->                                                                                                                      
+        <div                                                                                                                                
+          class="modal fade"                                                                                                              
+          id="del_modal"                                                                                                                  
+          tabindex="-1"                                                                                                                   
+          role="dialog"                                                                                                                   
+          aria-labelledby="myModalLabel"                                                                                                  
+        >                                                                                                                                   
+          <div class="modal-dialog" role="document">                                                                                    
+            <div                                                                                                                            
+              class="alert alert-danger alert-dismissible fade in"                                                                        
+              role="alert"                                                                                                                
+            >                                                                                                                               
+              <button                                                                                                                       
+                type="button"                                                                                                             
+                class="close"                                                                                                             
+                data-dismiss="alert"                                                                                                      
+                aria-label="Close"                                                                                                        
+              >                                                                                                                             
+                <span aria-hidden="true">×</span>                                                                                         
+              </button>                                                                                                                     
+              <h4>                                                                                                                          
+                <i class="fa fa-question-circle" aria-hidden="true"></i>                                                                
+                是否确定删除?                                                                                                                     
+              </h4>                                                                                                                         
+              <p style="margin: 15px 0px">                                                                                                
+                删除后,所有关联的相关数据都会被删除.                                                                                                         
+              </p>                                                                                                                          
+                                                                                                                                            
+              <hr />                                                                                                                        
+              <p style="text-align: right">                                                                                               
+                <button                                                                                                                     
+                  id="btn_confirm_del"                                                                                                    
+                  type="button"                                                                                                           
+                  class="btn btn-danger"                                                                                                  
+                >                                                                                                                           
+                  删除                                                                                                                        
+                </button>                                                                                                                   
+                <button                                                                                                                     
+                  type="button"                                                                                                           
+                  class="btn btn-default"                                                                                                 
+                  data-dismiss="modal"                                                                                                    
+                >                                                                                                                           
+                  取消                                                                                                                        
+                </button>                                                                                                                   
+              </p>                                                                                                                          
+            </div>                                                                                                                          
+          </div>                                                                                                                            
+        </div>                                                                                                                              
+                                                                                                                                            
+        <!-- 编辑模态框 -->                                                                                                                      
+                                                                                                                                            
+        <!-- 搜索 -->                                                                                                                         
+        <div class="col-xs-4" style="float: right">                                                                                     
+          <form method="get" action="">                                                                                                 
+            <div class="input-group">                                                                                                     
+              <input                                                                                                                        
+                type="text"                                                                                                               
+                class="form-control"                                                                                                      
+                placeholder="Search for..."                                                                                               
+                name="query"                                                                                                              
+                value="{{search_data}}"                                                                                                   
+              />                                                                                                                            
+              <span class="input-group-btn">                                                                                              
+                <button class="btn btn-default" type="submit">                                                                          
+                  <span                                                                                                                     
+                    class="glyphicon glyphicon-search"                                                                                    
+                    aria-hidden="true"                                                                                                    
+                  ></span>                                                                                                                  
+                </button>                                                                                                                   
+              </span>                                                                                                                       
+            </div>                                                                                                                          
+          </form>                                                                                                                           
+          <!-- /input-group -->                                                                                                             
+        </div>                                                                                                                              
+      </div>                                                                                                                                
+                                                                                                                                            
+      <!-- 内容列表 -->                                                                                                                         
+                                                                                                                                            
+      <div class="panel panel-primary">                                                                                                   
+        <!-- Default panel contents -->                                                                                                     
+        <div class="panel-heading">                                                                                                       
+          <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>                                                          
+          工单列表                                                                                                                              
+        </div>                                                                                                                              
+                                                                                                                                            
+        <!-- Table -->                                                                                                                      
+        <table class="table table-hover table-striped table-bordered">                                                                    
+          <thead>                                                                                                                           
+            <tr>                                                                                                                            
+              <th>ID</th>                                                                                                                   
+              <th>类型</th>                                                                                                                   
+              <th>工厂</th>                                                                                                                   
+              <th>描述</th>                                                                                                                   
+              <th>状态</th>                                                                                                                   
+              <th>开始时间</th>                                                                                                                 
+              <th>结束时间</th>                                                                                                                 
+              <th>Ticket</th>                                                                                                               
+              <th>CI</th>                                                                                                                   
+              <th>Saving(RMB)</th>                                                                                                          
+              <th>Note</th>                                                                                                                 
+              <th>实施人</th>                                                                                                                  
+              <th>操作</th>                                                                                                                   
+            </tr>                                                                                                                           
+          </thead>                                                                                                                          
+          <tbody>                                                                                                                           
+            {% for item in data_list %}                                                                                                     
+            <tr>                                                                                                                            
+              <th scope="row">{{item.id}}</th>                                                                                            
+              <td>                                                                                                                          
+                <div class="" id="type_name">{{item.type_name.type_name}}</div>                                                         
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="factory">{{item.factory.factory}}</div>                                                               
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="description">{{item.description}}</div>                                                               
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="status">{{item.get_status_display}}</div>                                                             
+                <!-- 获取男女,模板语言中不允许有() -->                                                                                                   
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="start_time">                                                                                          
+                  {{item.start_time|date:"Y-m-d"}}                                                                                          
+                </div>                                                                                                                      
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="finished_time">                                                                                       
+                  {{item.finished_time|date:"Y-m-d"}}                                                                                       
+                </div>                                                                                                                      
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="ticket">{{item.ticket}}</div>                                                                         
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="CI">{{item.CI}}</div>                                                                                 
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="saving">{{item.saving}}</div>                                                                         
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="note">{{item.note}}</div>                                                                             
+              </td>                                                                                                                         
+              <td>                                                                                                                          
+                <div class="" id="name">{{item.name.username}}</div>                                                                    
+              </td>                                                                                                                         
+                                                                                                                                            
+              <th>                                                                                                                          
+                <button                                                                                                                     
+                  uid="{{item.id}}"                                                                                                       
+                  type="button"                                                                                                           
+                  class="btn btn-info btn-sm btn_edit"                                                                                    
+                >                                                                                                                           
+                  编辑                                                                                                                        
+                </button>                                                                                                                   
+                <button                                                                                                                     
+                  uid="{{item.id}}"                                                                                                       
+                  type="button"                                                                                                           
+                  class="btn btn-danger btn-sm btn_del"                                                                                   
+                >                                                                                                                           
+                  <i class="fa fa-trash" aria-hidden="true"></i>                                                                        
+                </button>                                                                                                                   
+              </th>                                                                                                                         
+            </tr>                                                                                                                           
+            {% endfor %}                                                                                                                    
+          </tbody>                                                                                                                          
+        </table>                                                                                                                            
+      </div>                                                                                                                                
+      <nav aria-label="...">                                                                                                              
+        <!-- 页码 -->                                                                                                                         
+        <ul class="pagination clearfix">                                                                                                  
+          {{page_str}}                                                                                                                      
+        </ul>                                                                                                                               
+      </nav>                                                                                                                                
+    </div>                                                                                                                                  
+  </div>                                                                                                                                    
+</div>                                                                                                                                      
+{% endblock %} {% block js %}                                                                                                               
+<script src="{% static 'plugins/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js' %}"></script>                                  
+<script src="{% static 'plugins/bootstrap-datepicker-1.9.0/locales/bootstrap-datepicker.zh-CN.min.js' %}"></script>                       
+<script type="text/javascript">                                                                                                           
+  var del_ID; //全局变量                                                                                                                        
+  var edit_ID;                                                                                                                              
+  var date = new Date();                                                                                                                    
+  year = date.getFullYear();                                                                                                                
+  month = date.getMonth() + 1;                                                                                                              
+  day = date.getDate();                                                                                                                     
+  var input_day = year + "-" + month + "-" + day;                                                                                       
+                                                                                                                                            
+                                                                                                                                            
+  //初始化                                                                                                                                     
+  var ops = {                                                                                                                               
+    //日期格式                                                                                                                                  
+    todayHighlight: true, //设置当天日期高亮                                                                                                        
+    autoclose: true, //选择后自动关闭                                                                                                              
+    clearBtn: true, //清除按钮                                                                                                                  
+    format: "yyyy-mm-dd", //日期格式                                                                                                          
+    classes: "cs-like",                                                                                                                   
+    language: "zh-CN", //语言                                                                                                               
+  };                                                                                                                                        
+  $("#id_start_time").datepicker(ops); //为开始日期实现日期控件                                                                                      
+  $("#id_finished_time").datepicker(ops); //为结束日期实现日期控件                                                                                   
+                                                                                                                                            
+  $(function () {                                                                                                                           
+    bindbtn_addEvent(); //list界面的添加按钮事件                                                                                                     
+    bindbtn_editEvent(); //list界面的编辑按钮事件                                                                                                    
+    bindbtn_delEvent(); //list界面的删除按钮事件                                                                                                     
+    bindbtn_saveEvent(); // 模态框中保存按钮事件                                                                                                      
+    bindbtn_confirm_delEvent(); // 模态框中确认删除按钮事件                                                                                             
+  });                                                                                                                                       
+                                                                                                                                            
+  function bindbtn_addEvent() {                                                                                                             
+    //点击按钮显示模态对话框                                                                                                                           
+    $("#btn_add").click(function () {                                                                                                     
+      edit_ID = undefined;                                                                                                                  
+      $("#myModalLabel").text("新建");                                                                                                    
+      $("#formajax")[0].reset(); //清空form内容                                                                                               
+      $("#id_start_time").val(input_day);                                                                                                   
+      $(".error-msg").empty();                                                                                                            
+      //#意味着使用的是id=""这个餐宿                                                                                                                 
+      $("#myModal").modal("show");                                                                                                      
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function bindbtn_editEvent() {                                                                                                            
+    //调用的是edit按钮的class中的属性, 使用的是.                                                                                                           
+    $(".btn_edit").click(function () {                                                                                                    
+      $("#formajax")[0].reset(); //清空form内容                                                                                               
+      $(".error-msg").empty();                                                                                                            
+      var uid = $(this).attr("uid");                                                                                                      
+      edit_ID = uid;                                                                                                                        
+      $("#myModalLabel").text("编辑"); //修改标题                                                                                             
+                                                                                                                                            
+      $.ajax({                                                                                                                              
+        url: "/order/" + uid + "/detail/",                                                                                              
+        type: "GET", //大括号内的是字典, 使用:                                                                                                      
+        data: $("#formajax").serialize(), //直接获取form3中所有含name属性 框内的值                                                                      
+        dataType: "JSON",                                                                                                                 
+        success: function (res) {                                                                                                           
+          if (res.status) {                                                                                                                 
+            //把数据赋值到即将打开的页面中                                                                                                                
+            $.each(res.data, function (name, value) {                                                                                       
+              if (name == "type_name_id") {   //变更name, 把后面的_id去掉, 否则外键框将没有数据                                                             
+                name = "type_name";                                                                                                       
+              }                                                                                                                             
+              if (name == "factory_id") {   //变更name, 把后面的_id去掉, 否则外键框将没有数据                                                               
+                name = "factory";                                                                                                         
+              }                                                                                                                             
+              $("#id_" + name).val(value); //给编辑界面填充数据                                                                                    
+            });                                                                                                                             
+                                                                                                                                            
+            $("#myModal").modal("show"); //显示模态框                                                                                        
+                                                                                                                                            
+            //location.reload();                                                                                                            
+          } else {                                                                                                                          
+            alert(res.error);                                                                                                               
+          }                                                                                                                                 
+        },                                                                                                                                  
+      });                                                                                                                                   
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function bindbtn_delEvent() {                                                                                                             
+    //调用的是del按钮的class中的属性, 使用的是.                                                                                                            
+    $(".btn_del").click(function () {                                                                                                     
+      //显示删除对话框                                                                                                                             
+      $("#del_modal").modal("show");                                                                                                    
+                                                                                                                                            
+      //获取当前行的ID, 并给全局变量 del_ID                                                                                                             
+      del_ID = $(this).attr("uid");                                                                                                       
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function bindbtn_confirm_delEvent() {                                                                                                     
+    //调用的是del按钮的id中的属性, 使用的是#                                                                                                               
+    $("#btn_confirm_del").click(function () {                                                                                             
+      $.ajax({                                                                                                                              
+        url: "/order/" + del_ID + "/del/",                                                                                              
+        type: "GET", //大括号内的是字典, 使用:                                                                                                      
+        data: $("#formajax").serialize(), //直接获取form3中所有含name属性 框内的值                                                                      
+        dataType: "JSON",                                                                                                                 
+        success: function (res) {                                                                                                           
+          if (res.status) {                                                                                                                 
+            del_ID = 0; //全局变量重置为0                                                                                                          
+            location.reload();                                                                                                              
+          } else {                                                                                                                          
+            alert(res.error);                                                                                                               
+          }                                                                                                                                 
+        },                                                                                                                                  
+      });                                                                                                                                   
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function doADD() {                                                                                                                        
+    $.ajax({                                                                                                                                
+      url: "/order/add/",                                                                                                                 
+      type: "post", //大括号内的是字典, 使用:                                                                                                       
+      data: $("#formajax").serialize(), //直接获取form3中所有含name属性 框内的值                                                                        
+      dataType: "JSON",                                                                                                                   
+      success: function (res) {                                                                                                             
+        if (res.status) {                                                                                                                   
+          location.reload();                                                                                                                
+          $("#formajax")[0].reset();                                                                                                      
+        } else {                                                                                                                            
+          $.each(res.error, function (name, error_list) {                                                                                   
+            $("#id_" + name)                                                                                                              
+              .next()                                                                                                                       
+              .text(error_list[0]);                                                                                                         
+          });                                                                                                                               
+        }                                                                                                                                   
+      },                                                                                                                                    
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function doEDIT() {                                                                                                                       
+    $.ajax({                                                                                                                                
+      url: "/order/" + edit_ID + "/edit/",                                                                                              
+      type: "post", //大括号内的是字典, 使用:                                                                                                       
+      data: $("#formajax").serialize(), //直接获取form3中所有含name属性 框内的值                                                                        
+      dataType: "JSON",                                                                                                                   
+      success: function (res) {                                                                                                             
+        if (res.status) {                                                                                                                   
+          $("#formajax")[0].reset();                                                                                                      
+          location.reload();                                                                                                                
+        } else {                                                                                                                            
+          if (res.not_exist_error) {                                                                                                        
+            alert(res.not_exist_error);                                                                                                     
+          } else {                                                                                                                          
+            $.each(res.error, function (name, error_list) {                                                                                 
+              $("#id_" + name)                                                                                                            
+                .next()                                                                                                                     
+                .text(error_list[0]);                                                                                                       
+            });                                                                                                                             
+          }                                                                                                                                 
+        }                                                                                                                                   
+      },                                                                                                                                    
+    });                                                                                                                                     
+  }                                                                                                                                         
+                                                                                                                                            
+  function bindbtn_saveEvent() {                                                                                                            
+    $("#btn_save").click(function () {                                                                                                    
+      //按钮的click事件                                                                                                                          
+      //#意味着使用的是id=""这个餐宿                                                                                                                 
+      $(".error-msg").empty(); //这里必须用class的属性来设置,才能成功                                                                                    
+      if (edit_ID) {                                                                                                                        
+        //编辑                                                                                                                                
+        doEDIT();                                                                                                                           
+      } else {                                                                                                                              
+        //添加                                                                                                                                
+        doADD();                                                                                                                            
+      }                                                                                                                                     
+    });                                                                                                                                     
+  }                                                                                                                                         
+</script>                                                                                                                                   
+                                                                                                                                            
+{% endblock %}                                                                                                                              
+                                                                                                                                            
